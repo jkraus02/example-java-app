@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-22T09:16:54Z"
+  generation: 4
+  name: unit-test
+  namespace: krausj02-dev
+  resourceVersion: "3431167788"
+  uid: f6800128-009a-47d2-b91d-754a1bc90b93
+spec:
+  steps:
+  - computeResources: {}
+    image: registry.digitalocean.com/openshiftcourse/gradle:8-jdk17
+    name: unit-test
+    script: |
+      cd $(workspaces.source.path)
+      cd example-java-app
+      gradle test
+  workspaces:
+  - name: source

@@ -1,0 +1,78 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  creationTimestamp: "2023-11-22T09:52:04Z"
+  generation: 8
+  name: source-code-test-pipeline
+  namespace: krausj02-dev
+  resourceVersion: "3434629066"
+  uid: 5c085a86-6d22-40bd-979d-b7108dcc0ca1
+spec:
+  finally:
+  - name: cleanup
+    taskRef:
+      kind: Task
+      name: cleanup
+    workspaces:
+    - name: source
+      workspace: source
+  tasks:
+  - name: pull-repository
+    taskRef:
+      kind: Task
+      name: pull-repository
+    workspaces:
+    - name: source
+      workspace: source
+  - name: security-test
+    runAfter:
+    - pull-repository
+    taskRef:
+      kind: Task
+      name: security-test
+    workspaces:
+    - name: source
+      workspace: source
+  - name: unit-test
+    runAfter:
+    - security-test
+    taskRef:
+      kind: Task
+      name: unit-test
+    workspaces:
+    - name: source
+      workspace: source
+  - name: build-tar
+    runAfter:
+    - unit-test
+    taskRef:
+      kind: Task
+      name: build-tar
+    workspaces:
+    - name: source
+      workspace: source
+  - name: trigger-buildconfig
+    params:
+    - name: buildConfigName
+      value: java-app-build
+    - name: namespace
+      value: krausj02-dev
+    runAfter:
+    - build-tar
+    taskRef:
+      kind: Task
+      name: trigger-build
+    workspaces:
+    - name: source
+      workspace: source
+  - name: report
+    runAfter:
+    - trigger-buildconfig
+    taskRef:
+      kind: Task
+      name: report
+    workspaces:
+    - name: source
+      workspace: source
+  workspaces:
+  - name: source

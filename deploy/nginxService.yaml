@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-11-23T13:21:54Z"
+  name: nginx-deployment
+  namespace: krausj02-dev
+  resourceVersion: "3435144280"
+  uid: 4eda9033-ac94-4d91-8dd6-ae3aed449ac8
+spec:
+  clusterIP: 172.30.204.224
+  clusterIPs:
+  - 172.30.204.224
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

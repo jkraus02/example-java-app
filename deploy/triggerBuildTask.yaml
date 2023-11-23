@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-22T09:50:49Z"
+  generation: 6
+  name: trigger-build
+  namespace: krausj02-dev
+  resourceVersion: "3435035345"
+  uid: 953526df-1c4d-4487-a5b7-76e755c68f2b
+spec:
+  steps:
+  - computeResources: {}
+    env:
+    - name: HOME
+      value: /tekton/home
+    image: quay.io/openshift/origin-cli:latest
+    name: trigger-build
+    script: |
+      #!/usr/bin/env sh
+      oc start-build java-app-build -n krausj02-dev
+  workspaces:
+  - name: source

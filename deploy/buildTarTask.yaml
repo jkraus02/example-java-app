@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-22T09:31:12Z"
+  generation: 3
+  name: build-tar
+  namespace: krausj02-dev
+  resourceVersion: "3431170288"
+  uid: 9246bf17-149a-4c96-8de6-d94aa1ddf7f5
+spec:
+  steps:
+  - computeResources: {}
+    image: registry.digitalocean.com/openshiftcourse/gradle:8-jdk17
+    name: build-tar
+    script: |
+      cd $(workspaces.source.path)
+      cd example-java-app
+      gradle build
+  workspaces:
+  - name: source

@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-22T09:09:56Z"
+  generation: 12
+  name: pull-repository
+  namespace: krausj02-dev
+  resourceVersion: "3434427839"
+  uid: 7f804501-2922-4486-afc8-6384ba199341
+spec:
+  steps:
+  - computeResources: {}
+    image: quay.io/wire/alpine-git
+    name: git-clone
+    script: "cd $(workspaces.source.path)  \ngit clone https://github.com/jkraus02/example-java-app.git\n"
+  workspaces:
+  - name: source

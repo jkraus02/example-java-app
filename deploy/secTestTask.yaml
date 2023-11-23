@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-22T09:14:49Z"
+  generation: 9
+  name: security-test
+  namespace: krausj02-dev
+  resourceVersion: "3431178046"
+  uid: 4ada515b-ffad-4f52-9131-4fa9db0e599b
+spec:
+  steps:
+  - computeResources: {}
+    image: registry.digitalocean.com/openshiftcourse/gradle:8-jdk17
+    name: security-test
+    script: |
+      cd $(workspaces.source.path)
+      cd example-java-app
+      gradle dependencyCheckAnalyze
+  workspaces:
+  - name: source

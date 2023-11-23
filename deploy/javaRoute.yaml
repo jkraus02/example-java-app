@@ -1,0 +1,33 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: "2023-11-23T07:55:39Z"
+  labels:
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: java-app-ls
+  name: el-java-app-ls
+  namespace: krausj02-dev
+  resourceVersion: "3434308266"
+  uid: 35192d51-2d82-4e32-ac41-a6d6ca139daf
+spec:
+  host: el-java-app-ls-krausj02-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  port:
+    targetPort: http-listener
+  to:
+    kind: Service
+    name: el-java-app-ls
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - lastTransitionTime: "2023-11-23T07:55:39Z"
+      status: "True"
+      type: Admitted
+    host: el-java-app-ls-krausj02-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerCanonicalHostname: router-default.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerName: default
+    wildcardPolicy: None

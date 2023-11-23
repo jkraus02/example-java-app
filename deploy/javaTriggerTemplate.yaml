@@ -1,0 +1,31 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  creationTimestamp: "2023-11-22T13:30:11Z"
+  generation: 2
+  name: java-app-trigger-template
+  namespace: krausj02-dev
+  resourceVersion: "3434279454"
+  uid: c0f74aec-fa1b-48b6-9998-a74b68a9a6fb
+spec:
+  params:
+  - default: main
+    description: The git revision
+    name: gitrevision
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1
+    kind: PipelineRun
+    metadata:
+      generateName: source-code-test-pipeline
+    spec:
+      params:
+      - name: repo-url
+        value: https://github.com/jkraus02/example-java-app.git
+      - name: revision
+        value: main
+      pipelineRef:
+        name: source-code-test-pipeline
+      workspaces:
+      - name: source
+        persistentVolumeClaim:
+          claimName: java-app-claim
