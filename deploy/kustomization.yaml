@@ -1,1 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
+resources:
+- imageStream.yaml
+- buildConfig.yaml
+- javaDeployment.yaml
+- nginxDeployment.yaml
+- javaService.yaml
+- nginxervice.yaml
+- javaRoute.yaml
+- nginxRoute.yaml
+- pullRepoTask.yaml
+- secTestTask.yaml
+- unitTestTask.yaml
+- buildTarTask.yaml
+- cleanUpTask.yaml
+- reportTask.yaml
+- triggerBuildTask.yaml
+- pipeline.yaml
+- javaEL.yaml
+- javaTriggerTemplate.yaml
+- javaTriggerbinding.yaml
