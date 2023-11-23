@@ -1,0 +1,13 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  creationTimestamp: "2023-11-22T13:31:00Z"
+  generation: 1
+  name: java-app-trigger-binding
+  namespace: krausj02-dev
+  resourceVersion: "3431628301"
+  uid: 539bae2c-ec15-428d-8d45-a0d053d20cf9
+spec:
+  params:
+  - name: gitrevision
+    value: $(body.pull_request.head.sha)

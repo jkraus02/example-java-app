@@ -1,0 +1,48 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  creationTimestamp: "2023-11-22T13:36:26Z"
+  generation: 1
+  name: java-app-ls
+  namespace: krausj02-dev
+  resourceVersion: "3434313274"
+  uid: 425a15ba-fdbe-4bd9-bbf2-9ba281cc942a
+spec:
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: pipeline
+  triggers:
+  - bindings:
+    - kind: TriggerBinding
+      ref: java-app-trigger-binding
+    name: java-app-trigger
+    template:
+      ref: java-app-trigger-template
+status:
+  address:
+    url: http://el-java-app-ls.krausj02-dev.svc.cluster.local:8080
+  conditions:
+  - lastTransitionTime: "2023-11-23T07:57:42Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-11-23T07:57:42Z"
+    message: Deployment exists
+    status: "True"
+    type: Deployment
+  - lastTransitionTime: "2023-11-22T13:36:30Z"
+    message: ReplicaSet "el-java-app-ls-795646b84" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-11-23T07:57:42Z"
+    message: EventListener is ready
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2023-11-23T07:57:42Z"
+    message: Service exists
+    status: "True"
+    type: Service
+  configuration:
+    generatedName: el-java-app-ls

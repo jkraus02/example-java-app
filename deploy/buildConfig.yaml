@@ -1,0 +1,33 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  creationTimestamp: "2023-11-22T13:06:10Z"
+  generation: 19
+  name: java-app-build
+  namespace: krausj02-dev
+  resourceVersion: "3435118044"
+  uid: 36f092a8-3592-4ab8-95d4-d91a63f8518d
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: java-app:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: main
+      uri: https://github.com/jkraus02/example-java-app.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      pullSecret:
+        name: private-registry-credentials
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+status:
+  lastVersion: 16

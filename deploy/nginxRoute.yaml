@@ -1,0 +1,29 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: "2023-11-23T13:22:20Z"
+  name: nginx-deployment
+  namespace: krausj02-dev
+  resourceVersion: "3435145557"
+  uid: 8ddc2d8a-20b7-4cc0-a759-50e6a9872729
+spec:
+  host: nginx-deployment-krausj02-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: nginx-deployment
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - lastTransitionTime: "2023-11-23T13:22:20Z"
+      status: "True"
+      type: Admitted
+    host: nginx-deployment-krausj02-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerCanonicalHostname: router-default.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+    routerName: default
+    wildcardPolicy: None

@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  creationTimestamp: "2023-11-23T09:34:27Z"
+  generation: 13
+  name: report
+  namespace: krausj02-dev
+  resourceVersion: "3435096055"
+  uid: c9ca0a3d-cd23-481c-90fa-b7f830a664ce
+spec:
+  params:
+  - default: /workspace/source/example-java-app/build/reports
+    description: Path to the dependency-check-report.html file
+    name: report-file-path
+    type: string
+  steps:
+  - computeResources: {}
+    image: alpine:latest
+    name: create-index-html
+    script: |
+      #!/bin/sh
+      echo "Creating index.html file for ConfigMap"
+      cat $(params.report-file-path)/dependency-check-report.html > $(workspaces.source.path)/index.html
+  - computeResources: {}
+    image: quay.io/openshift/origin-cli:latest
+    name: create-configmap
+    script: |
+      #!/bin/sh
+      echo "Creating or updating ConfigMap dependency-security-report"
+      oc delete configmap dependency-security-report
+      oc create configmap dependency-security-report --from-file=index.html=$(workspaces.source.path)/index.html
+  workspaces:
+  - name: source
